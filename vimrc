@@ -216,6 +216,8 @@ map <Leader>rtws :%s/\s\+$//<CR>
 """ toggle syntastic errors
 map <Leader>serr :SyntasticToggleMode<CR>
 
+map <Leader>nrhs :%s/:\(\w*\)\s*=>\s*/\1: /gc<CR>
+
 nnoremap <Leader>y "+y
 nnoremap <Leader>p "+p
 nnoremap <Leader>P "+P
