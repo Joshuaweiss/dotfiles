@@ -66,7 +66,7 @@ Plugin 'plasticboy/vim-markdown'
 
 """ Library and Framework shortcuts
 Plugin 'tpope/vim-rails'
-Plugin 'Keithbsmiley/rspec.vim' 
+Plugin 'Keithbsmiley/rspec.vim'
 Plugin 'tpope/vim-haml'
 Plugin 'thoughtbot/vim-rspec'
 
@@ -120,7 +120,7 @@ set wildignore+=.DS_Store
 set number
 syntax on
 
-color znake 
+color znake
 "BlackSea  "smyck
 
 """ Make background clear for terminal emulator background image
@@ -137,7 +137,7 @@ au FileType ruby hi Type gui=bold
 """Set for MacVim
 set guifont=InputMono:h13
 
-setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType * setlocal shiftwidth=2 tabstop=2 expandtab
 
 """ dont syntax highlight past character limit
 set synmaxcol=200
@@ -149,6 +149,8 @@ set laststatus=2
 au FileType ruby let b:dispatch = 'ruby %'
 au FileType rust let b:dispatch = 'cargo run .'
 
+autocmd BufRead,BufNewFile *.csv set filetype=csv
+au FileType csv setlocal noeol
 
 
 """"""""""""""""""""""""""""""""""""""""
@@ -166,8 +168,8 @@ let g:syntastic_html_checkers = []
 """ Indentation Guides
 au FileType * IndentGuidesEnable
 let g:indent_guides_auto_colors = 0
-hi IndentGuidesOdd  ctermbg=grey
-hi IndentGuidesEven ctermbg=darkgrey
+hi IndentGuidesOdd  ctermbg=233
+hi IndentGuidesEven ctermbg=234
 
 
 """ Airline
