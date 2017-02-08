@@ -8,9 +8,6 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" This is needed for the indentation guides to work
-setlocal shiftwidth=2 tabstop=2 expandtab
-
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
@@ -47,10 +44,10 @@ Plugin 'JarrodCTaylor/vim-shell-executor'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-surround'
 
-Plugin 'takac/vim-spotifysearch'
-
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-abolish'
+
+Plugin 'vim-scripts/ZoomWin'
 
 """ Add language support
 Plugin 'kchmck/vim-coffee-script'
@@ -63,6 +60,7 @@ Plugin 'mxw/vim-jsx'
 Plugin 'mtscout6/vim-cjsx'
 Plugin 'isRuslan/vim-es6'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'posva/vim-vue'
 
 """ Library and Framework shortcuts
 Plugin 'tpope/vim-rails'
@@ -73,8 +71,6 @@ Plugin 'thoughtbot/vim-rspec'
 """ Programming Tools
 Plugin 'scrooloose/syntastic'
 Plugin 'ap/vim-css-color'
-Plugin 'valloric/youcompleteme'
-Plugin 'rizzatti/dash.vim'
 
 """ Airline and Themes
 Plugin 'vim-airline/vim-airline'
@@ -137,8 +133,6 @@ au FileType ruby hi Type gui=bold
 """Set for MacVim
 set guifont=InputMono:h13
 
-autocmd FileType * setlocal shiftwidth=2 tabstop=2 expandtab
-
 """ dont syntax highlight past character limit
 set synmaxcol=200
 
@@ -171,17 +165,13 @@ let g:indent_guides_auto_colors = 0
 hi IndentGuidesOdd  ctermbg=233
 hi IndentGuidesEven ctermbg=234
 
+set foldlevelstart=20
+setlocal foldmethod=syntax
 
 """ Airline
 let g:airline_theme='powerlineish'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-
-"""ctrlp ignore
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|node_modules)$',
-  \ 'file': '\v\.(DS_Store)$'
-  \ }
 
 """ctrlp should cache
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
@@ -191,8 +181,13 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
+
+" This is needed for the indentation guides to work
+setlocal shiftwidth=4 tabstop=4 expandtab
+
 " Automatically detect file types.
-filetype plugin indent on
+" filetype plugin indent on
+
 
 
 
@@ -203,7 +198,7 @@ filetype plugin indent on
 map <Leader>rs :!cargo run<CR>
 
 """ run rspec
-let g:rspec_command = "Dispatch rspec {spec}"
+let g:rspec_command = "Dispatch bundle exec rspec {spec}"
 map <Leader>nsp :call RunNearestSpec()<CR>
 map <Leader>lsp :call RunLastSpec()<CR>
 map <Leader>fsp :call RunCurrentSpecFile()<CR>
@@ -270,10 +265,7 @@ function! ByebugOn()
 endfunction
 
 function! ByebugOff()
-  let g:rspec_command = "Dispatch rspec {spec}"
-endfunction
-
-function! Rb()
+  let g:rspec_command = "Dispatch rspec {spec}" endfunction function! Rb()
   !ruby %:p
 endfunction
 
@@ -281,3 +273,44 @@ function! NewColorstepPrev()
   call ColorstepPrev()
   hi Normal ctermbg=none
 endfunction
+
+" Compatible with ranger 1.4.2 through 1.7.*
+"
+" Add ranger as a file chooser in vim
+"
+" If you add this code to the .vimrc, ranger can be started using the command
+" ":RangerChooser" or the keybinding "<leader>r".  Once you select one or more
+" files, press enter and ranger will quit again and vim will open the selected
+" files.
+
+function! RangeChooser()
+    let temp = tempname()
+    " The option "--choosefiles" was added in ranger 1.5.1. Use the next line
+    " with ranger 1.4.2 through 1.5.0 instead.
+    "exec 'silent !ranger --choosefile=' . shellescape(temp)
+    if has("gui_running")
+        exec 'silent !xterm -e ranger --choosefiles=' . shellescape(temp)
+    else
+        exec 'silent !ranger --choosefiles=' . shellescape(temp)
+    endif
+    if !filereadable(temp)
+        redraw!
+        " Nothing to read.
+        return
+    endif
+    let names = readfile(temp)
+    if empty(names)
+        redraw!
+        " Nothing to open.
+        return
+    endif
+    " Edit the first item.
+    exec 'edit ' . fnameescape(names[0])
+    " Add any remaning items to the arg list/buffer list.
+    for name in names[1:]
+        exec 'argadd ' . fnameescape(name)
+    endfor
+    redraw!
+endfunction
+command! -bar RangerChooser call RangeChooser()
+nnoremap <leader>r :<C-U>RangerChooser<CR>
