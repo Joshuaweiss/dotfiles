@@ -8,6 +8,9 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+" This is needed for the indentation guides to work
+setlocal shiftwidth=4 tabstop=4 expandtab
+
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
@@ -20,6 +23,8 @@ Plugin 'nathanaelkane/vim-indent-guides'
 
 " make vim file browser nice
 Plugin 'tpope/vim-vinegar'
+
+Plugin 'jparise/vim-graphql'
 
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tpope/vim-unimpaired'
@@ -61,6 +66,7 @@ Plugin 'mtscout6/vim-cjsx'
 Plugin 'isRuslan/vim-es6'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'posva/vim-vue'
+Plugin 'gcorne/vim-sass-lint'
 
 """ Library and Framework shortcuts
 Plugin 'tpope/vim-rails'
@@ -71,6 +77,7 @@ Plugin 'thoughtbot/vim-rspec'
 """ Programming Tools
 Plugin 'scrooloose/syntastic'
 Plugin 'ap/vim-css-color'
+Plugin 'rizzatti/dash.vim'
 
 """ Airline and Themes
 Plugin 'vim-airline/vim-airline'
@@ -131,7 +138,9 @@ au FileType ruby hi Function gui=bold
 au FileType ruby hi Type gui=bold
 
 """Set for MacVim
-set guifont=InputMono:h13
+set guifont=Fira\ Mono\ for\ Powerline:h13
+
+autocmd FileType * setlocal shiftwidth=2 tabstop=2 expandtab
 
 """ dont syntax highlight past character limit
 set synmaxcol=200
@@ -152,12 +161,16 @@ au FileType csv setlocal noeol
 """"""""""""""""""""""""""""""""""""""""
 
 """ Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_typescript_tsc_fname = ''
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_typescript_tsc_fname = ''
 let g:syntastic_html_checkers = []
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_sass_checkers=["sasslint"]
+let g:syntastic_scss_checkers=["sasslint"]
+
 
 """ Indentation Guides
 au FileType * IndentGuidesEnable
@@ -181,13 +194,8 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
-
-" This is needed for the indentation guides to work
-setlocal shiftwidth=4 tabstop=4 expandtab
-
 " Automatically detect file types.
 " filetype plugin indent on
-
 
 
 
@@ -314,3 +322,44 @@ function! RangeChooser()
 endfunction
 command! -bar RangerChooser call RangeChooser()
 nnoremap <leader>r :<C-U>RangerChooser<CR>
+
+function! Notes()
+  cd ~/Dropbox/Notes
+  call RangeChooser()
+endfunction
+map <Leader>nts :call Notes()<CR>
+
+function! UnicodeEscapeString(str)
+  let oldenc = &encoding
+  set encoding=utf-8
+  let escaped = substitute(a:str, '[^[:alnum:][:blank:][:cntrl:][:graph:]]', '\=printf("\\u%04x", char2nr(submatch(0)))', 'g')
+  let &encoding = oldenc
+  return escaped
+endfunction
+
+function! UnicodeEscape() range
+  let oldreg = @x
+  execute 'normal gv"xy'
+  let @x = UnicodeEscapeString(@x)
+  execute 'normal gv"xp'
+  let @x = oldreg
+endfunction
+
+function! UnicodeUnescapeString(str)
+  let oldenc = &encoding
+  set encoding=utf-8
+  let escaped = substitute(a:str, '\\u\([0-9a-fA-F]\{4\}\)', '\=nr2char("0x" . submatch(1))', 'g')
+  let &encoding = oldenc
+  return escaped
+endfunction
+
+function! UnicodeUnescape() range
+  let oldreg = @x
+  execute 'normal gv"xy'
+  let @x = UnicodeUnescapeString(@x)
+  execute 'normal gv"xp'
+  let @x = oldreg
+endfunction
+
+command! -range UnicodeEscape :<line1>,<line2>call UnicodeEscape()
+command! -range UnicodeUnescape :<line1>,<line2>call UnicodeUnescape()
