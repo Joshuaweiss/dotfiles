@@ -2,6 +2,7 @@
   name = Joshua Weiss
   email = jtw@joshuatweiss.com
 [alias]
+  aap = add -p
   pff = pull --ff-only
   rb = rebase
   cp = cherry-pick

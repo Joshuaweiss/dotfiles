@@ -1,33 +1,33 @@
-#!/usr/local/bin/zsh
+#!/bin/zsh
 
 function safe_move {
   local SOURCE=$1
   local DESTINATION=$2
-  if [[ -f DESTINATION ]]; then
+
+  if [[ -f $DESTINATION ]]; then
     safe_move $DESTINATION "${DESTINATION}.old"
   fi
 
-  safe_move $SOURCE $DESTINATION
+  mv $SOURCE $DESTINATION
 }
 
-
-function safe_link() {
+function safe_link {
   local SOURCE=$1
   local DESTINATION=$2
 
-  if [[ -L DESTINATION ]]; then
-    rm DESTINATION
+  if [[ -L $DESTINATION ]]; then
+    rm $DESTINATION
   fi
 
-  if [[ -f DESTINATION ]]; then
+  if [[ -f $DESTINATION ]]; then
     safe_move $DESTINATION "${DESTINATION}.old"
   fi
 
-  ln -s $SOURCE ~/$DESTINATION
+  ln -s $SOURCE $DESTINATION
 }
 
-local DIR="${pwd}"
-if cat "${DIR}/install.zsh" | grep "CURRENT FILE CHECK"; then
+local DIR="$(pwd)"
+if ! cat "${DIR}/install.zsh" | grep "CURRENT FILE CHECK" > /dev/null; then
   echo "This script must be run from the dotfiles directory"
   exit 1
 fi
