@@ -1,0 +1,59 @@
+# Display seconds in human readable fromat
+# Based on http://stackoverflow.com/a/32164707/3859566
+# USAGE:
+#   _displaytime <seconds>
+_displaytime() {
+  local T=$1
+  local D=$((T/60/60/24))
+  local H=$((T/60/60%24))
+  local M=$((T/60%60))
+  local S=$((T%60))
+  [[ $D > 0 ]] && printf '%dd ' $D
+  [[ $H > 0 ]] && printf '%dh ' $H
+  [[ $M > 0 ]] && printf '%dm ' $M
+  printf '%ds' $S
+}
+
+prompt() {
+  # Retirve exit code of last command to use in exit_code
+  # Must be captured before any other command in prompt is executed
+  RETVAL=$?
+
+  # Option EXTENDED_GLOB is set locally to force filename generation on
+  # argument to conditions, i.e. allow usage of explicit glob qualifier (#q).
+  # See the description of filename generation in
+  # http://zsh.sourceforge.net/Doc/Release/Conditional-Expressions.html
+  setopt EXTENDED_GLOB LOCAL_OPTIONS
+
+  echo -n "%{$fg_bold[blue]%}"
+  [[ $RETVAL != 0 ]] && echo -n "%{$fg_bold[red]%}E($RETVAL) "
+  if [[ $EXEC_TIME_duration -ge 2 ]]; then
+    echo -n "$(_displaytime $SPACESHIP_EXEC_TIME_duration) "
+  fi
+  echo -n "λ "
+  if [[ $LOGNAME != $USER ]] || [[ $UID == 0 ]] || [[ -n $SSH_CONNECTION ]]; then
+    echo -n "%{$fg[magenta]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} "
+  fi
+}
+
+PROMPT="$(prompt)"
+export PROMPT
+
+# Execution time start
+exec_time_preexec_hook() {
+  EXEC_TIME_start=$(date +%s)
+}
+
+# Execution time end
+exec_time_precmd_hook() {
+  [[ -n $EXEC_TIME_duration ]] && unset EXEC_TIME_duration
+  [[ -z $EXEC_TIME_start ]] && return
+  local EXEC_TIME_stop=$(date +%s)
+  EXEC_TIME_duration=$(($EXEC_TIME_stop - $EXEC_TIME_start))
+  unset EXEC_TIME_start
+}
+
+autoload -Uz add-zsh-hook
+# Add exec_time hooks
+add-zsh-hook preexec exec_time_preexec_hook
+add-zsh-hook precmd exec_time_precmd_hook

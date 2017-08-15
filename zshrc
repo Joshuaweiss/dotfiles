@@ -1,0 +1,89 @@
+TERM=xterm-256color
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+# Vi mode
+bindkey -v
+set editing-mode vi
+
+# Path
+export PATH=$PATH:/Users/joshuaweiss/.pyenv/shims
+export PATH=$PATH:~/.cabal/bin
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
+
+if [[ -a "/usr/share/zsh/share/antigen.zsh" ]]; then
+  source "/usr/share/zsh/share/antigen.zsh"
+elif [[ -a "$(brew --prefix)/share/antigen/antigen.zsh" ]]; then
+  source "$(brew --prefix)/share/antigen/antigen.zsh"
+else
+  echo "Cannot find Antigen install"
+  exit 1
+fi
+
+# OH-MY-ZSH
+antigen use oh-my-zsh
+
+# NVM
+export NVM_LAZY_LOAD=true
+antigen bundle lukechilds/zsh-nvm
+
+# Syntax Highlighting
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+antigen apply
+
+# Automatically change the directories after closing ranger
+function rcd {
+  if !which ranger; then
+    echo "Cannot find ranger"
+    exit 1
+  fi
+  tempfile="$(mktemp -t tmp.XXXXXX)"
+  ranger --choosedir="$tempfile" "${@:-$(pwd)}"
+  test -f "$tempfile" &&
+  if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
+      cd -- "$(cat "$tempfile")"
+  fi
+  rm -f -- "$tempfile"
+}
+
+# iTerm integration
+[[ -a "${HOME}/.iterm2_shell_integration.zsh" ]] && source "${HOME}/.iterm2_shell_integration.zsh"
+
+alias vim=choose_vim
+alias rvim=vim
+function choose_vim {
+  if which nvim > /dev/null; then
+    nvim $@
+  elif which vim > /dev/null; then
+    vim $@
+  else
+    vi $@
+  fi
+}
+
+alias ls=choose_ls
+function choose_ls {
+  if which exa > /dev/null; then
+    exa $@
+  else
+    ls $@
+  fi
+}
+
+# Git aliases
+alias gc="git commit"
+alias gs="git status"
+alias gpff="git pff"
+## edit unmerged
+alias eunm="!$EDITOR \$(git unm)"
+
+# Other
+alias regex="xargs perl -pi -E"
+alias serv="python3 -m http.server 8000"
+alias ppjson="python -m json.tool"
+
+source ~/.zsh_prompt

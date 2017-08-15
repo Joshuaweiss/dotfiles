@@ -1,0 +1,7 @@
+[user]
+  name = Joshua Weiss
+  email = jtw@joshuatweiss.com
+[alias]
+  pff = pull --ff-only
+  rb = rebase
+  cp = cherry-pick

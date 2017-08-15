@@ -9,7 +9,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " This is needed for the indentation guides to work
-setlocal shiftwidth=4 tabstop=4 expandtab
+" setlocal shiftwidth=4 tabstop=4 expandtab
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
@@ -32,7 +32,6 @@ Plugin 'tpope/vim-unimpaired'
 " Ag search
 Plugin 'rking/ag.vim'
 
-
 Plugin 'godlygeek/tabular'
 
 "vim-endwise"
@@ -48,6 +47,9 @@ Plugin 'tpope/vim-eunuch'
 Plugin 'JarrodCTaylor/vim-shell-executor'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-sleuth.git'
+
+Plugin 'takac/vim-spotifysearch'
 
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-abolish'
@@ -80,17 +82,12 @@ Plugin 'ap/vim-css-color'
 Plugin 'rizzatti/dash.vim'
 
 """ Airline and Themes
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plugin 'itchyny/lightline.vim'
 Plugin 'edkolev/tmuxline.vim'
-Plugin 'edkolev/promptline.vim'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'qualiabyte/vim-colorstepper'
-Bundle 'altercation/vim-colors-solarized'
+Plugin 'morhetz/gruvbox'
+Plugin 'shinchu/lightline-gruvbox.vim'
 
 """ Other
-"""""""""""""""""""""""""""""""""""""""
-
 " syntax issue #203
 Plugin 'jimenezrick/vimerl'
 
@@ -100,58 +97,54 @@ call vundle#end()
 " Basic Config
 """"""""""""""""""""""""""""""""""""""""
 
-""using unamed clipboard to match macOS
+""" using unamed clipboard to match macOS
 set clipboard=unnamed
 
-"""highlight evil tab characters
-highlight EvilTabCharacter ctermbg=red guibg=red
-autocmd ColorScheme * highlight EvilTabCharacter ctermbg=red guibg=red
-match EvilTabCharacter /\t/
+""" highlight evil tab characters
+" highlight EvilTabCharacter ctermbg=red guibg=red
+" autocmd ColorScheme * highlight EvilTabCharacter ctermbg=red guibg=red
+" match EvilTabCharacter /\t/
 
 set backspace=2 " make backspace work like most other apps
 
-"set wildignore+=doc            " should not break helptags
-"set wildignore+=.git           " should not break clone
-"set wildignore+=.git/*         " should not break clone
-"set wildignore+=*/.git/*
-"set wildignore+=*/node_modules/*
-"set wildignore+=*/tmp/*
-"set wildignore+=*/public/*
-"set wildignore+=public/*
 set wildignore+=.DS_Store
 
+set termguicolors
 set number
 syntax on
 
-color znake
-"BlackSea  "smyck
+set background=dark
+colorscheme gruvbox
 
 """ Make background clear for terminal emulator background image
 hi Normal ctermbg=none
 
-"""Custom ruby
-au FileType ruby hi String gui=italic
-au FileType ruby hi Define gui=bold
-au FileType ruby hi Identifier gui=bold
-au FileType ruby hi Constant gui=bold
-au FileType ruby hi Function gui=bold
-au FileType ruby hi Type gui=bold
-
-"""Set for MacVim
-set guifont=Fira\ Mono\ for\ Powerline:h13
-
-autocmd FileType * setlocal shiftwidth=2 tabstop=2 expandtab
+" autocmd FileType * setlocal shiftwidth=2 tabstop=2 expandtab
 
 """ dont syntax highlight past character limit
-set synmaxcol=200
+""" uncomment if using in a slow terminal
+""" set synmaxcol=100
 
 """ Always show statusline
 set laststatus=2
+set noshowmode
 
-"""Dispatch
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+
+""" Dispatch
 au FileType ruby let b:dispatch = 'ruby %'
 au FileType rust let b:dispatch = 'cargo run .'
 
+""" No EOL for CSV files
 autocmd BufRead,BufNewFile *.csv set filetype=csv
 au FileType csv setlocal noeol
 
@@ -168,9 +161,9 @@ let g:syntastic_check_on_open = 1
 "let g:syntastic_typescript_tsc_fname = ''
 let g:syntastic_html_checkers = []
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_sass_checkers=["sasslint"]
-let g:syntastic_scss_checkers=["sasslint"]
-
+"let g:syntastic_sass_checkers=["sasslint"]
+"let g:syntastic_scss_checkers=["sasslint"]
+let g:syntastic_scss_checkers=[]
 
 """ Indentation Guides
 au FileType * IndentGuidesEnable
@@ -180,11 +173,6 @@ hi IndentGuidesEven ctermbg=234
 
 set foldlevelstart=20
 setlocal foldmethod=syntax
-
-""" Airline
-let g:airline_theme='powerlineish'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
 
 """ctrlp should cache
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
@@ -226,9 +214,6 @@ map <Leader>nrhs :%s/:\(\w*\)\s*=>\s*/\1: /gc<CR>
 nnoremap <Leader>y "+y
 nnoremap <Leader>p "+p
 nnoremap <Leader>P "+P
-
-"nmap <F6> <Plug>NewColorstepPrev
-"nmap <F7> <Plug>ColorstepNext
 
 """"""""""""""""""""""""""""""""""""""""
 " Functions
@@ -277,20 +262,6 @@ function! ByebugOff()
   !ruby %:p
 endfunction
 
-function! NewColorstepPrev()
-  call ColorstepPrev()
-  hi Normal ctermbg=none
-endfunction
-
-" Compatible with ranger 1.4.2 through 1.7.*
-"
-" Add ranger as a file chooser in vim
-"
-" If you add this code to the .vimrc, ranger can be started using the command
-" ":RangerChooser" or the keybinding "<leader>r".  Once you select one or more
-" files, press enter and ranger will quit again and vim will open the selected
-" files.
-
 function! RangeChooser()
     let temp = tempname()
     " The option "--choosefiles" was added in ranger 1.5.1. Use the next line
@@ -324,7 +295,7 @@ command! -bar RangerChooser call RangeChooser()
 nnoremap <leader>r :<C-U>RangerChooser<CR>
 
 function! Notes()
-  cd ~/Dropbox/Notes
+  cd ~/google_drive/notes
   call RangeChooser()
 endfunction
 map <Leader>nts :call Notes()<CR>
