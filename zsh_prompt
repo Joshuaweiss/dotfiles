@@ -14,7 +14,7 @@ _displaytime() {
   printf '%ds' $S
 }
 
-prompt() {
+function prompt {
   # Retirve exit code of last command to use in exit_code
   # Must be captured before any other command in prompt is executed
   RETVAL=$?
@@ -36,7 +36,7 @@ prompt() {
   fi
 }
 
-PROMPT="$(prompt)"
+PROMPT="\$(prompt)"
 export PROMPT
 
 # Execution time start
