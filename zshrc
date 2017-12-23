@@ -8,8 +8,8 @@ bindkey -v
 set editing-mode vi
 
 # Path
-export PATH=$PATH:/Users/joshuaweiss/.pyenv/shims
-export PATH=$PATH:~/.cabal/bin
+export PATH="$PATH:$HOME/.pyenv/shims"
+export PATH="$PATH:$HOME/.cabal/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
@@ -27,7 +27,7 @@ fi
 antigen use oh-my-zsh
 
 # NVM
-export NVM_LAZY_LOAD=true
+export NVM_AUTO_USE=true
 antigen bundle lukechilds/zsh-nvm
 
 # Syntax Highlighting
@@ -50,11 +50,7 @@ function rcd {
   rm -f -- "$tempfile"
 }
 
-# iTerm integration
-[[ -a "${HOME}/.iterm2_shell_integration.zsh" ]] && source "${HOME}/.iterm2_shell_integration.zsh"
-
 alias vim=choose_vim
-alias rvim=vim
 function choose_vim {
   if which nvim > /dev/null; then
     nvim $@
@@ -78,12 +74,8 @@ function choose_ls {
 alias gc="git commit"
 alias gs="git status"
 alias gpff="git pff"
-## edit unmerged
-alias eunm="!$EDITOR \$(git unm)"
 
 # Other
-alias regex="xargs perl -pi -E"
-alias serv="python3 -m http.server 8000"
 alias ppjson="python -m json.tool"
 
-source ~/.zsh_prompt
+source "$HOME/.zsh_prompt"
