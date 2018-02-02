@@ -22,6 +22,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'rking/ag.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'tpope/vim-endwise.git'
+Plugin 'tpope/vim-jdaddy.git'
 "Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-fugitive'
 Plugin 'kien/ctrlp.vim'
@@ -136,6 +137,8 @@ endif
 
 """ toggle syntastic errors
 map <Leader>serr :SyntasticToggleMode<CR>
+map <Leader>sp :split<CR>
+map <Leader>vs :vsplit<CR>
 
 """"""""""""""""""""""""""""""""""""""""
 " Functions
