@@ -37,4 +37,5 @@ safe_link $DIR/zshrc ~/.zshrc
 safe_link $DIR/zsh_prompt ~/.zsh_prompt
 safe_link $DIR/vimrc ~/.vimrc
 safe_link $DIR/vimrc ~/.config/init.vim
+safe_link $DIR/alacritty ~/.config/alacritty.yml
 safe_link $DIR/gitconfig ~/.gitconfig
