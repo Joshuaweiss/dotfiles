@@ -73,16 +73,11 @@ function choose_ls {
 # Git aliases
 alias gc="git commit"
 alias gs="git status"
+alias ga="git add"
 alias gpff="git pff"
+alias grb="git rb"
 
 # Other
 alias ppjson="python -m json.tool"
 
 source "$HOME/.zsh_prompt"
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/joshuaweiss/Stuff/serverlessTemplate/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/joshuaweiss/Stuff/serverlessTemplate/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/joshuaweiss/Stuff/serverlessTemplate/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/joshuaweiss/Stuff/serverlessTemplate/node_modules/tabtab/.completions/sls.zsh

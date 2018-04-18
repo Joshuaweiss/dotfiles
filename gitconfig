@@ -6,5 +6,7 @@
     pff = pull --ff-only
     rb = rebase
     cp = cherry-pick
+    s = status
+    a = add
 [core]
     excludesfile = ~/.gitignore

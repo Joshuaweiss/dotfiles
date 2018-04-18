@@ -4,6 +4,8 @@ filetype off                  " required
 """" Vundle
 """"""""""""""""""""""""""""""""""""""""
 
+set nowrap
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -44,6 +46,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'briancollins/vim-jst'
 Plugin 'mxw/vim-jsx'
 Plugin 'elzr/vim-json'
+Plugin 'tikhomirov/vim-glsl'
 
 """ Programming Tools
 Plugin 'scrooloose/syntastic'
@@ -70,6 +73,8 @@ let g:javascript_plugin_jsdoc = 1
 
 """ editorconfig options
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+let g:EditorConfig_max_line_indicator = 'fill'
+let g:EditorConfig_preserve_formatoptions = 1
 
 """ using unamed clipboard to match macOS
 set clipboard=unnamed
@@ -87,6 +92,7 @@ colorscheme gruvbox
 
 """ Make background clear for terminal emulator background images
 hi Normal ctermbg=none
+highlight ColorColumn ctermbg=235 guibg=#333333
 
 """ Always show statusline
 set laststatus=2
@@ -117,7 +123,6 @@ let g:syntastic_scss_checkers=[]
 """ Indentation Guides
 au FileType * IndentGuidesEnable
 let g:indent_guides_auto_colors = 0
-hi IndentGuidesOdd  ctermbg=233
 hi IndentGuidesEven ctermbg=234
 
 set foldlevelstart=20

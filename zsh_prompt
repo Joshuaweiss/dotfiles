@@ -8,10 +8,10 @@ _displaytime() {
   local H=$((T/60/60%24))
   local M=$((T/60%60))
   local S=$((T%60))
-  [[ $D > 0 ]] && printf '%dd %dh' $D $H ||
-  [[ $H > 0 ]] && printf '%dh %dm' $H $M ||
-  [[ $M > 0 ]] && printf '%dm %ds' $M $S ||
-  printf '%ds' $1
+  [[ $D > 0 ]] && printf '%dd %dh' $D $H
+  [[ $H > 0 ]] && [[ $D == 0 ]] && printf '%dh %dm' $H $M
+  [[ $M > 0 ]] && [[ $H == 0 ]] && printf '%dm %ds' $M $S
+  [[ $M == 0 ]] && printf '%ds' $1
 }
 
 function prompt {
@@ -25,15 +25,14 @@ function prompt {
   # http://zsh.sourceforge.net/Doc/Release/Conditional-Expressions.html
   setopt EXTENDED_GLOB LOCAL_OPTIONS
 
-  echo -n "%{$fg_bold[blue]%}"
-  [[ $RETVAL != 0 ]] && echo -n "%{$fg_bold[red]%}E($RETVAL) "
+  [[ $RETVAL != 0 ]] && echo -n "%{$fg_bold[red]%}E($RETVAL)%{$reset_color%} "
   if [[ $EXEC_TIME_duration -ge 2 ]]; then
-    echo -n "$(_displaytime $EXEC_TIME_duration) "
+    echo -n "%{$fg_bold[magenta]%}$(_displaytime $EXEC_TIME_duration)%{$reset_color%} "
   fi
-  echo -n "λ "
   if [[ $LOGNAME != $USER ]] || [[ $UID == 0 ]] || [[ -n $SSH_CONNECTION ]]; then
     echo -n "%{$fg[magenta]%}%n%{$reset_color%} at %{$fg[yellow]%}%m%{$reset_color%} "
   fi
+  echo -n "%{$fg_bold[blue]%}λ%{$reset_color%} "
 }
 
 PROMPT="\$(prompt)"
