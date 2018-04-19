@@ -33,6 +33,7 @@ if ! cat "${DIR}/install.zsh" | grep "CURRENT FILE CHECK" > /dev/null; then
 fi
 
 safe_link $DIR/tmux.conf ~/.tmux.conf
+safe_link $DIR/tmux_theme ~/.tmux_theme
 safe_link $DIR/zshrc ~/.zshrc
 safe_link $DIR/zsh_prompt ~/.zsh_prompt
 safe_link $DIR/vimrc ~/.vimrc
