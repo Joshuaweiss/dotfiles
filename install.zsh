@@ -37,7 +37,7 @@ safe_link $DIR/tmux_theme ~/.tmux_theme
 safe_link $DIR/zshrc ~/.zshrc
 safe_link $DIR/zsh_prompt ~/.zsh_prompt
 safe_link $DIR/vimrc ~/.vimrc
-safe_link $DIR/vimrc ~/.config/init.vim
+safe_link $DIR/vimrc ~/.config/nvim/init.vim
 safe_link $DIR/alacritty ~/.config/alacritty/alacritty.yml
 safe_link $DIR/gitconfig ~/.gitconfig
 safe_link $DIR/chunkwmrc ~/.chunkwmrc
