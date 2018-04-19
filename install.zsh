@@ -41,3 +41,4 @@ safe_link $DIR/vimrc ~/.config/nvim/init.vim
 safe_link $DIR/alacritty ~/.config/alacritty/alacritty.yml
 safe_link $DIR/gitconfig ~/.gitconfig
 safe_link $DIR/chunkwmrc ~/.chunkwmrc
+safe_link $DIR/khdrc ~/.khdrc
