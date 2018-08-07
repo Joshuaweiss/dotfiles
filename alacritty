@@ -29,13 +29,6 @@ window:
 
   decorations: true
 
-# The FreeType rasterizer needs to know the device DPI for best results
-# (changes require restart)
-dpi:
-  x: 280.0
-  y: 280.0
-
-
 # Display tabs using this many cells (changes require restart)
 tabspaces: 8
 
@@ -82,6 +75,8 @@ font:
   # for retina displays, but for non-retina you probably want this set to
   # false.
   use_thin_strokes: true
+
+  scale_with_dpi: true
 
 # Should display the render timer
 render_timer: false
@@ -184,7 +179,7 @@ key_bindings:
   - { key: C,        mods: Command, action: Copy                         }
   - { key: Q,        mods: Command, action: Quit                         }
   - { key: W,        mods: Command, action: Quit                         }
-  - { key: N,        mods: Command, command: { program: "open", args: ["-n", "/Applications/Alacritty.app"] } }
+  - { key: N,        mods: Command, command: { program: "open", args: ["-nb", "io.alacritty"] } }
   - { key: Home,                    chars: "\x1bOH",   mode: AppCursor   }
   - { key: Home,                    chars: "\x1b[1~",  mode: ~AppCursor  }
   - { key: End,                     chars: "\x1bOF",   mode: AppCursor   }
@@ -232,6 +227,8 @@ key_bindings:
   - { key: Back,     mods: Alt,     chars: "\x1b\x7f"                    }
   - { key: Insert,                  chars: "\x1b[2~"                     }
   - { key: Delete,                  chars: "\x1b[3~"                     }
+  - { key: Equals,     mods: Shift | Command, action: IncreaseFontSize }
+  - { key: Minus,    mods: Command, action: DecreaseFontSize }
 
 # Mouse bindings
 #

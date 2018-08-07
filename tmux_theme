@@ -27,5 +27,4 @@ setw -g window-status-format "#[fg=colour229,bg=colour239] #I: #W "
 setw -g window-status-current-format "#[fg=colour237,bg=colour142] #I:#[bold,fg=colour237,bg=colour142] #W "
 
 set-option -g status-position top
-set -g status-right '#[fg=colour250] #{pane_current_path} #[bg=colour72,bold, fg=colour237] #(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD) | %d/%m | %H:%M:%S '
-
+set -g status-right '#[fg=colour250] #(echo #{pane_current_path} | ~/.utils/pwd-tmux "0.5") #[bg=colour72,bold, fg=colour237]#(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD | sed -e "s/^/ /g" -e "s/$/ /g")'

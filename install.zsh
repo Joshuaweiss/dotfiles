@@ -42,3 +42,6 @@ safe_link $DIR/alacritty ~/.config/alacritty/alacritty.yml
 safe_link $DIR/gitconfig ~/.gitconfig
 safe_link $DIR/chunkwmrc ~/.chunkwmrc
 safe_link $DIR/khdrc ~/.khdrc
+
+mkdir ~/.utils
+rustc -O ./pwd_tmux/main.rs -o ~/.utils/pwd-tmux

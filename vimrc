@@ -17,6 +17,7 @@ Plugin 'gmarik/Vundle.vim'
 """ Improve Vim Capabilities
 """""""""""""""""""""""""""""""""""""""""""""""
 
+Plugin 'chrisbra/unicode.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tpope/vim-vinegar'
 Plugin 'christoomey/vim-tmux-navigator'

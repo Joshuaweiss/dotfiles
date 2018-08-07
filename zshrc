@@ -8,7 +8,7 @@ bindkey -v
 set editing-mode vi
 
 # Path
-export PATH="$PATH:$HOME/.pyenv/shims"
+export PATH="$HOME/.pyenv/shims:$PATH"
 export PATH="$PATH:$HOME/.cabal/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -80,4 +80,31 @@ alias grb="git rb"
 # Other
 alias ppjson="python -m json.tool"
 
+alias cpwd="pwd | pbcopy"
+alias pcd='cd $(pbpaste)'
+
 source "$HOME/.zsh_prompt"
+
+tmux_status() {
+    tmux refresh-client -S
+}
+
+if which tmux &> /dev/null && [ -n "$TMUX" ]; then
+    add-zsh-hook precmd tmux_status
+fi
+
+if which tmux &> /dev/null && ! [ -n "$TMUX" ]; then
+    if tmux list-sessions -F "#{session_name}" | grep '^S-'; then
+        tmux new-session -t S \; new-window
+    else
+        tmux new-session -t S
+    fi
+fi
+
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/joshuaweiss/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/joshuaweiss/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/joshuaweiss/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/joshuaweiss/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
