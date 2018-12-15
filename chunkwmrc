@@ -77,17 +77,17 @@ chunkc set window_use_cgs_move           0
 # NOTE: the following are config variables for the chunkwm-border plugin.
 #
 
-# chunkc set focused_border_color          0x88ffffff
-# chunkc set focused_border_width          6
-# chunkc set focused_border_radius         2
-# chunkc set focused_border_skip_floating  1
+chunkc set focused_border_color          0x60000000
+chunkc set focused_border_width          12
+chunkc set focused_border_radius         4
+chunkc set focused_border_skip_floating  1
 
 #
 # NOTE: specify plugins to load when chunkwm starts.
 #       if chunkc plugin_dir is not set, the absolutepath is necessary.
 #
 
-# chunkc core::load border.so
+chunkc core::load border.so
 chunkc core::load tiling.so
 # chunkc core::load ffm.so
 

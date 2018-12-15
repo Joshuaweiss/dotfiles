@@ -57,8 +57,11 @@ Plugin 'editorconfig/editorconfig-vim'
 """ Airline and Themes
 Plugin 'itchyny/lightline.vim'
 Plugin 'edkolev/tmuxline.vim'
-Plugin 'morhetz/gruvbox'
+Plugin 'drewtempelmeyer/palenight.vim'
+" Plugin 'morhetz/gruvbox'
+" Plugin 'xero/sourcerer.vim'
 Plugin 'shinchu/lightline-gruvbox.vim'
+" Plugin 'chriskempson/base16-vim'
 
 call vundle#end()
 
@@ -89,18 +92,23 @@ set number
 syntax on
 
 set background=dark
-colorscheme gruvbox
+" colorscheme gruvbox
+colorscheme palenight
+let g:palenight_terminal_italics=1
 
 """ Make background clear for terminal emulator background images
 hi Normal ctermbg=none
 highlight ColorColumn ctermbg=235 guibg=#333333
+hi Normal guibg=NONE ctermbg=NONE
+
+filetype indent off
 
 """ Always show statusline
 set laststatus=2
 set noshowmode
 
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'palenight',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'filename', 'modified' ] ]
@@ -110,6 +118,17 @@ let g:lightline = {
       \ },
       \ }
 
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+  set termguicolors
+endif
 
 """"""""""""""""""""""""""""""""""""""""
 " Plugin Settings
@@ -124,7 +143,8 @@ let g:syntastic_scss_checkers=[]
 """ Indentation Guides
 au FileType * IndentGuidesEnable
 let g:indent_guides_auto_colors = 0
-hi IndentGuidesEven ctermbg=234
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#2a364f
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#283247
 
 set foldlevelstart=20
 setlocal foldmethod=syntax

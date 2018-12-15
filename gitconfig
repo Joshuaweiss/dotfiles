@@ -6,6 +6,7 @@
     pff = pull --ff-only
     rb = rebase
     cp = cherry-pick
+    ck = checkout
     s = status
     a = add
 [core]

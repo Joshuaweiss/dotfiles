@@ -6,3 +6,7 @@ shift + alt - h : chunkc tiling::window --swap west
 shift + alt - j : chunkc tiling::window --swap south
 shift + alt - k : chunkc tiling::window --swap north
 shift + alt - l : chunkc tiling::window --swap east
+shift + ctl - h : chunkc tiling::window --swap west
+shift + ctl - j : chunkc tiling::window --swap south
+shift + ctl - k : chunkc tiling::window --swap north
+shift + ctl - l : chunkc tiling::window --swap east

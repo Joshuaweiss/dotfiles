@@ -7,12 +7,20 @@ export LANG=en_US.UTF-8
 bindkey -v
 set editing-mode vi
 
+# Editor
+export EDITOR=nvim
+export VISUAL=nvim
+
+export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
+
 # Path
 export PATH="$HOME/.pyenv/shims:$PATH"
 export PATH="$PATH:$HOME/.cabal/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
+
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 if [[ -a "/usr/share/zsh/share/antigen.zsh" ]]; then
   source "/usr/share/zsh/share/antigen.zsh"
@@ -23,12 +31,13 @@ else
   exit 1
 fi
 
+
 # OH-MY-ZSH
 antigen use oh-my-zsh
 
 # NVM
-export NVM_AUTO_USE=true
-antigen bundle lukechilds/zsh-nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # Syntax Highlighting
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -91,14 +100,8 @@ tmux_status() {
 
 if which tmux &> /dev/null && [ -n "$TMUX" ]; then
     add-zsh-hook precmd tmux_status
-fi
-
-if which tmux &> /dev/null && ! [ -n "$TMUX" ]; then
-    if tmux list-sessions -F "#{session_name}" | grep '^S-'; then
-        tmux new-session -t S \; new-window
-    else
-        tmux new-session -t S
-    fi
+else
+    exec tmux new-session
 fi
 
 

@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+# yarn
+.yarn-error.log
+
 # VIM Swap
 [._]*.s[a-v][a-z]
 [._]*.sw[a-p]
