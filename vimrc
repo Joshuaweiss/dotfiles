@@ -1,69 +1,70 @@
-filetype off                  " required
-
 """""""""""""""""""""""""""""""""""""""""
-"""" Vundle
+"""" Vim Dein
 """"""""""""""""""""""""""""""""""""""""
 
+" set the runtime path to include dein and initialize
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('~/.cache/dein')
+    call dein#begin('~/.cache/dein')
+
+    call dein#add('autozimu/LanguageClient-neovim', {
+        \ 'rev': 'next',
+        \ 'build': 'bash install.sh',
+        \ })
+
+    """""""""""""""""""""""""""""""""""""""""""""""
+    """ Improve Vim Capabilities
+    """""""""""""""""""""""""""""""""""""""""""""""
+    call dein#add('chrisbra/unicode.vim')
+    call dein#add('nathanaelkane/vim-indent-guides')
+    call dein#add('tpope/vim-vinegar')
+    call dein#add('christoomey/vim-tmux-navigator')
+    call dein#add('tpope/vim-unimpaired')
+    call dein#add('rking/ag.vim')
+    call dein#add('tpope/vim-endwise.git')
+    call dein#add('tpope/vim-jdaddy.git')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('kien/ctrlp.vim')
+    call dein#add('tpope/vim-eunuch')
+    call dein#add('tpope/vim-dispatch')
+    call dein#add('tpope/vim-surround')
+    call dein#add('terryma/vim-multiple-cursors')
+    call dein#add('tpope/vim-abolish')
+
+    """ Add language support
+    call dein#add('jparise/vim-graphql')
+    call dein#add('rust-lang/rust.vim')
+    call dein#add('leafgarland/typescript-vim')
+    call dein#add('vim-ruby/vim-ruby')
+    call dein#add('isRuslan/vim-es6')
+    call dein#add('plasticboy/vim-markdown')
+    call dein#add('posva/vim-vue')
+    call dein#add('pangloss/vim-javascript')
+    call dein#add('briancollins/vim-jst')
+    call dein#add('mxw/vim-jsx')
+    call dein#add('elzr/vim-json')
+    call dein#add('tikhomirov/vim-glsl')
+
+    """ Programming Tools
+    call dein#add('scrooloose/syntastic')
+    call dein#add('ap/vim-css-color')
+    call dein#add('editorconfig/editorconfig-vim')
+
+    """ Airline and Themes
+    call dein#add('itchyny/lightline.vim')
+    call dein#add('edkolev/tmuxline.vim')
+    call dein#add('drewtempelmeyer/palenight.vim')
+    " Plugin 'morhetz/gruvbox'
+    " Plugin 'xero/sourcerer.vim'
+    " Plugin 'shinchu/lightline-gruvbox.vim'
+    " Plugin 'chriskempson/base16-vim'
+
+    call dein#end()
+    call dein#save_state()
+endif
+
 set nowrap
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-"""""""""""""""""""""""""""""""""""""""""""""""
-""" Improve Vim Capabilities
-"""""""""""""""""""""""""""""""""""""""""""""""
-
-Plugin 'chrisbra/unicode.vim'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'tpope/vim-vinegar'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'rking/ag.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'tpope/vim-endwise.git'
-Plugin 'tpope/vim-jdaddy.git'
-"Plugin 'tpope/vim-sleuth'
-Plugin 'tpope/vim-fugitive'
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-surround'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tpope/vim-abolish'
-
-""" Add language support
-Plugin 'jparise/vim-graphql'
-Plugin 'rust-lang/rust.vim'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'isRuslan/vim-es6'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'posva/vim-vue'
-Plugin 'pangloss/vim-javascript'
-Plugin 'briancollins/vim-jst'
-Plugin 'mxw/vim-jsx'
-Plugin 'elzr/vim-json'
-Plugin 'tikhomirov/vim-glsl'
-
-""" Programming Tools
-Plugin 'scrooloose/syntastic'
-Plugin 'ap/vim-css-color'
-Plugin 'editorconfig/editorconfig-vim'
-
-""" Airline and Themes
-Plugin 'itchyny/lightline.vim'
-Plugin 'edkolev/tmuxline.vim'
-Plugin 'drewtempelmeyer/palenight.vim'
-" Plugin 'morhetz/gruvbox'
-" Plugin 'xero/sourcerer.vim'
-Plugin 'shinchu/lightline-gruvbox.vim'
-" Plugin 'chriskempson/base16-vim'
-
-call vundle#end()
 
 """"""""""""""""""""""""""""""""""""""""
 " Basic Config
