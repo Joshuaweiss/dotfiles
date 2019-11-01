@@ -14,11 +14,14 @@ export VISUAL=nvim
 export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
 
 # Path
-export PATH="$HOME/.pyenv/shims:$PATH"
+export PATH="$PATH:$HOME/.pyenv/shims"
 export PATH="$PATH:$HOME/.cabal/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
@@ -35,14 +38,33 @@ fi
 # OH-MY-ZSH
 antigen use oh-my-zsh
 
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
 # Syntax Highlighting
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 antigen apply
+
+# place this after nvm initialization!
+# auto nvm use in directories with nvmrc
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
 
 # Automatically change the directories after closing ranger
 function rcd {
@@ -104,10 +126,24 @@ else
     exec tmux new-session
 fi
 
+slugify() {
+  echo "${1}" | iconv -t ascii//TRANSLIT | gsed -r 's/[^a-zA-Z0-9]+/-/g' | gsed -r 's/^-+\|-+$//g' | tr A-Z a-z
+}
+
+bb-tag () {
+    local branch="$(slugify $(git branch | grep \* | cut -d ' ' -f2))"
+    local commit="$(git log --pretty=format:'%h' -n 1)"
+    local tag="${1}-${branch}-${commit}"
+    git tag $tag
+    echo $tag
+}
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/joshuaweiss/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/joshuaweiss/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+[[ -f /Users/joshuaweiss/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/joshuaweiss/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/joshuaweiss/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/joshuaweiss/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+[[ -f /Users/joshuaweiss/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/joshuaweiss/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/joshuaweiss/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/joshuaweiss/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh

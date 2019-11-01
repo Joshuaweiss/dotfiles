@@ -45,26 +45,25 @@ if dein#load_state('~/.cache/dein')
     call dein#add('mxw/vim-jsx')
     call dein#add('elzr/vim-json')
     call dein#add('tikhomirov/vim-glsl')
+    call dein#add('xavierchow/vim-sequence-diagram')
+    call dein#add('Galooshi/vim-import-js')
 
     """ Programming Tools
-    call dein#add('scrooloose/syntastic')
     call dein#add('ap/vim-css-color')
     call dein#add('editorconfig/editorconfig-vim')
+    call dein#add('w0rp/ale')
+    call dein#add('janko/vim-test')
+
 
     """ Airline and Themes
     call dein#add('itchyny/lightline.vim')
     call dein#add('edkolev/tmuxline.vim')
     call dein#add('drewtempelmeyer/palenight.vim')
-    " Plugin 'morhetz/gruvbox'
-    " Plugin 'xero/sourcerer.vim'
-    " Plugin 'shinchu/lightline-gruvbox.vim'
-    " Plugin 'chriskempson/base16-vim'
+    call dein#add('https://mmix.cs.hm.edu/tools/mms.vim')
 
     call dein#end()
     call dein#save_state()
 endif
-
-set nowrap
 
 """"""""""""""""""""""""""""""""""""""""
 " Basic Config
@@ -73,13 +72,18 @@ set nowrap
 """ vim-json
 let g:vim_json_syntax_conceal = 0
 
-""" vim-javascript
-let g:javascript_plugin_jsdoc = 1
+""" vim-markdown
+let g:vim_markdown_fenced_languages = ['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini', 'javascript=js', 'mermaid=sequence']
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
 
 """ editorconfig options
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 let g:EditorConfig_max_line_indicator = 'fill'
 let g:EditorConfig_preserve_formatoptions = 1
+
+""" ale
+let g:ale_completion_enabled = 1
 
 """ using unamed clipboard to match macOS
 set clipboard=unnamed
@@ -91,6 +95,22 @@ set wildignore+=.DS_Store
 set termguicolors
 set number
 syntax on
+
+let g:ale_fixers = {
+    \  'javascript': ['eslint'],
+    \  'typescript': ['eslint'],
+    \  'json': ['fixjson'],
+    \  'python': ['trim_whitespace', 'remove_trailing_lines']
+    \ }
+    let g:ale_lint_on_save = 1
+    let g:ale_fix_on_save = 1
+    let g:ale_python_flake8_executable = 'pipenv'
+    let g:ale_linters = {
+    \  'javascript': ['eslint', 'flow'],
+    \  'typescript': ['eslint', 'tsserver'],
+    \  'python': ['flake8'],
+    \  'json': ['fixjson']
+    \ }
 
 set background=dark
 " colorscheme gruvbox
@@ -135,17 +155,14 @@ endif
 " Plugin Settings
 """"""""""""""""""""""""""""""""""""""""
 
-""" Syntastic
-let g:syntastic_check_on_open = 1
-let g:syntastic_html_checkers = []
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_scss_checkers=[]
-
 """ Indentation Guides
 au FileType * IndentGuidesEnable
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#2a364f
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#283247
+
+set nowrap
+autocmd FileType md set wrap
 
 set foldlevelstart=20
 setlocal foldmethod=syntax
@@ -162,10 +179,21 @@ endif
 " Mappings
 """"""""""""""""""""""""""""""""""""""""
 
-""" toggle syntastic errors
-map <Leader>serr :SyntasticToggleMode<CR>
 map <Leader>sp :split<CR>
 map <Leader>vs :vsplit<CR>
+map <Leader>gtd :ALEGoToDefinition<CR>
+map <Leader>gtds :ALEGoToDefinitionInSplit<CR>
+map <Leader>gtdv :ALEGoToDefinitionInVSplit<CR>
+map <Leader>fref :ALEFindReferences<CR>
+map <Leader>hov :ALEHover<CR>
+map <Leader>doc :ALEDocumentation<CR>
+map <Leader>rename :ALERename<CR>
+map <Leader>fix :ALEFixSuggest<CR>
+map <leader>aj :ALENext<CR>
+map <leader>ak :ALEPrevious<CR>
+map <leader>tn :TestNearest<CR>
+map <leader>tf :TestFile<CR>
+map <leader>ts :TestSuite<CR>
 
 """"""""""""""""""""""""""""""""""""""""
 " Functions
