@@ -11,9 +11,8 @@ set editing-mode vi
 export EDITOR=nvim
 export VISUAL=nvim
 
-export LD_LIBRARY_PATH=$(rustc --print sysroot)/lib:$LD_LIBRARY_PATH
-
 # Path
+export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.pyenv/shims"
 export PATH="$PATH:$HOME/.cabal/bin"
 export PATH="$PATH:$HOME/.local/bin"
@@ -108,15 +107,15 @@ alias gpff="git pff"
 alias grb="git rb"
 
 function git-my-diff() {
-    git diff :1:$1 :2:$1
+  git diff :1:$1 :2:$1
 }
 
 function git-their-diff() {
-    git diff :1:$1 :3:$1
+  git diff :1:$1 :3:$1
 }
 
 function git-merge() {
-    vim -O <(git diff :1:$1 :2:$1) "$1" <(git diff :1:$1 :3:$1)
+  vim -O <(git diff :1:$1 :2:$1) "$1" <(git diff :1:$1 :3:$1)
 }
 
 # Other
@@ -128,14 +127,14 @@ alias pcd='cd $(pbpaste)'
 source "$HOME/.zsh_prompt"
 
 tmux_status() {
-    tmux refresh-client -S
+  tmux refresh-client -S
 }
 
 if which tmux &> /dev/null; then
-    if [ -n "$TMUX" ]; then
-        add-zsh-hook precmd tmux_status
+    if [ -z "$TMUX" ] && [ ${UID} != 0 ]; then
+      exec tmux new-session -A -s main
     else
-        exec tmux new-session
+      add-zsh-hook precmd tmux_status
     fi
 fi
 
@@ -144,11 +143,11 @@ slugify() {
 }
 
 bb-tag () {
-    local branch="$(slugify $(git branch | grep \* | cut -d ' ' -f2))"
-    local commit="$(git log --pretty=format:'%h' -n 1)"
-    local tag="${1}-${branch}-${commit}"
-    git tag $tag
-    echo $tag
+  local branch="$(slugify $(git branch | grep \* | cut -d ' ' -f2))"
+  local commit="$(git log --pretty=format:'%h' -n 1)"
+  local tag="${1}-${branch}-${commit}"
+  git tag $tag
+  echo $tag
 }
 
 # tabtab source for serverless package
