@@ -31,7 +31,6 @@ elif [[ -a "$(brew --prefix)/share/antigen/antigen.zsh" ]]; then
   source "$(brew --prefix)/share/antigen/antigen.zsh"
 else
   echo "Cannot find Antigen install"
-  exit 1
 fi
 
 
@@ -51,7 +50,7 @@ load-nvmrc() {
   local nvmrc_path="$(nvm_find_nvmrc)"
 
   if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+    local nvmrc_node_version=$(nvm version "$(cat "${krc_path}")")
 
     if [ "$nvmrc_node_version" = "N/A" ]; then
       nvm install
@@ -120,10 +119,12 @@ tmux_status() {
     tmux refresh-client -S
 }
 
-if which tmux &> /dev/null && [ -n "$TMUX" ]; then
-    add-zsh-hook precmd tmux_status
-else
-    exec tmux new-session
+if which tmux &> /dev/null; then
+    if [ -n "$TMUX" ]; then
+        add-zsh-hook precmd tmux_status
+    else
+        exec tmux new-session
+    fi
 fi
 
 slugify() {
