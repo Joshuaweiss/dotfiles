@@ -107,6 +107,18 @@ alias ga="git add"
 alias gpff="git pff"
 alias grb="git rb"
 
+function git-my-diff() {
+    git diff :1:$1 :2:$1
+}
+
+function git-their-diff() {
+    git diff :1:$1 :3:$1
+}
+
+function git-merge() {
+    vim -O <(git diff :1:$1 :2:$1) "$1" <(git diff :1:$1 :3:$1)
+}
+
 # Other
 alias ppjson="python -m json.tool"
 

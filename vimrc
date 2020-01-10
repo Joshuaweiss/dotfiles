@@ -19,7 +19,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('chrisbra/unicode.vim')
     call dein#add('nathanaelkane/vim-indent-guides')
     call dein#add('tpope/vim-vinegar')
-    call dein#add('christoomey/vim-tmux-navigator')
     call dein#add('tpope/vim-unimpaired')
     call dein#add('rking/ag.vim')
     call dein#add('tpope/vim-endwise.git')
@@ -46,7 +45,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('elzr/vim-json')
     call dein#add('tikhomirov/vim-glsl')
     call dein#add('xavierchow/vim-sequence-diagram')
-    call dein#add('Galooshi/vim-import-js')
+    call dein#add('JuliaEditorSupport/julia-vim')
 
     """ Programming Tools
     call dein#add('ap/vim-css-color')
@@ -54,12 +53,13 @@ if dein#load_state('~/.cache/dein')
     call dein#add('w0rp/ale')
     call dein#add('janko/vim-test')
 
-
     """ Airline and Themes
     call dein#add('itchyny/lightline.vim')
     call dein#add('edkolev/tmuxline.vim')
     call dein#add('drewtempelmeyer/palenight.vim')
-    call dein#add('https://mmix.cs.hm.edu/tools/mms.vim')
+
+    """ Navigation should override any other macros
+    call dein#add('christoomey/vim-tmux-navigator')
 
     call dein#end()
     call dein#save_state()
@@ -98,7 +98,7 @@ syntax on
 
 let g:ale_fixers = {
     \  'javascript': ['eslint'],
-    \  'typescript': ['eslint'],
+    \  'typescript': ['eslint', 'tslint'],
     \  'json': ['fixjson'],
     \  'python': ['trim_whitespace', 'remove_trailing_lines']
     \ }
@@ -107,7 +107,7 @@ let g:ale_fixers = {
     let g:ale_python_flake8_executable = 'pipenv'
     let g:ale_linters = {
     \  'javascript': ['eslint', 'flow'],
-    \  'typescript': ['eslint', 'tsserver'],
+    \  'typescript': ['eslint', 'tslint', 'tsserver'],
     \  'python': ['flake8'],
     \  'json': ['fixjson']
     \ }
@@ -178,7 +178,6 @@ endif
 """"""""""""""""""""""""""""""""""""""""
 " Mappings
 """"""""""""""""""""""""""""""""""""""""
-
 map <Leader>sp :split<CR>
 map <Leader>vs :vsplit<CR>
 map <Leader>gtd :ALEGoToDefinition<CR>
@@ -191,6 +190,7 @@ map <Leader>rename :ALERename<CR>
 map <Leader>fix :ALEFixSuggest<CR>
 map <leader>aj :ALENext<CR>
 map <leader>ak :ALEPrevious<CR>
+map <leader>alet :ALEToggle<CR>
 map <leader>tn :TestNearest<CR>
 map <leader>tf :TestFile<CR>
 map <leader>ts :TestSuite<CR>
