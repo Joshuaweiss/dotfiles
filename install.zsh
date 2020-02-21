@@ -42,9 +42,12 @@ mkdir ~/.config/nvim
 safe_link $DIR/vimrc ~/.config/nvim/init.vim
 mkdir ~/.config/alacritty
 safe_link $DIR/alacritty ~/.config/alacritty/alacritty.yml
-safe_link $DIR/gitconfig ~/.gitconfig
-safe_link $DIR/chunkwmrc ~/.chunkwmrc
-safe_link $DIR/khdrc ~/.khdrc
+mkdir ~/.config/skhd
+safe_link $DIR/skhdrc ~/.config/skhd/skhdrc
+mkdir ~/.config/yabai
+safe_link $DIR/skhdrc ~/.config/skhd/skhdrc
+safe_link $DIR/yabairc ~/.config/yabai/yabairc
+mkdir ~/.
 safe_link $DIR/gitignore ~/.gitignore
 
 mkdir ~/.utils
