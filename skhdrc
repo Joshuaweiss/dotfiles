@@ -6,7 +6,5 @@ shift + alt - h : yabai -m window --swap west
 shift + alt - j : yabai -m window --swap south
 shift + alt - k : yabai -m window --swap north
 shift + alt - l : yabai -m window --swap east
-shift + ctrl - h : yabai -m window --swap west
-shift + ctrl - j : yabai -m window --swap south
-shift + ctrl - k : yabai -m window --swap north
-shift + ctrl - l : yabai -m window --swap east
+cmd + ctrl - m : yabai -m display --focus recent
+cmd + ctrl + shift - m : yabai -m window --display recent
