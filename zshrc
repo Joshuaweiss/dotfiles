@@ -84,7 +84,7 @@ function choose_vim {
   if which nvim > /dev/null; then
     nvim $@
   elif which vim > /dev/null; then
-    vim $@
+    command vim $@
   else
     vi $@
   fi
@@ -95,7 +95,7 @@ function choose_ls {
   if which exa > /dev/null; then
     exa $@
   else
-    ls $@
+    command ls $@
   fi
 }
 
