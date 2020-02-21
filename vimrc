@@ -90,7 +90,7 @@ set clipboard=unnamed
 
 set backspace=2 " make backspace work like most other apps
 
-set wildignore+=.DS_Store
+set wildignore+=\.DS_Store
 
 set termguicolors
 set number
