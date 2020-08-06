@@ -18,7 +18,6 @@ if dein#load_state('~/.cache/dein')
     """""""""""""""""""""""""""""""""""""""""""""""
     call dein#add('chrisbra/unicode.vim')
     call dein#add('nathanaelkane/vim-indent-guides')
-    call dein#add('tpope/vim-vinegar')
     call dein#add('tpope/vim-unimpaired')
     call dein#add('rking/ag.vim')
     call dein#add('tpope/vim-endwise.git')
@@ -30,6 +29,8 @@ if dein#load_state('~/.cache/dein')
     call dein#add('tpope/vim-surround')
     call dein#add('terryma/vim-multiple-cursors')
     call dein#add('tpope/vim-abolish')
+    call dein#add('francoiscabrol/ranger.vim')
+    call dein#add('rbgrouleff/bclose.vim')
 
     """ Add language support
     call dein#add('jparise/vim-graphql')
@@ -156,6 +157,8 @@ endif
 " Plugin Settings
 """"""""""""""""""""""""""""""""""""""""
 
+let g:ranger_replace_netrw = 1
+
 """ Indentation Guides
 au FileType * IndentGuidesEnable
 let g:indent_guides_auto_colors = 0
@@ -195,6 +198,12 @@ map <leader>alet :ALEToggle<CR>
 map <leader>tn :TestNearest<CR>
 map <leader>tf :TestFile<CR>
 map <leader>ts :TestSuite<CR>
+nmap - :Ranger<CR>
+
+tnoremap <silent><C-j> <C-\><C-N>:TmuxNavigateDown<CR>i
+tnoremap <silent><C-k> <C-\><C-N>:TmuxNavigateUp<CR>i
+tnoremap <silent><C-h> <C-\><C-N>:TmuxNavigateLeft<CR>i
+tnoremap <silent><C-l> <C-\><C-N>:TmuxNavigateRight<CR>i
 
 """"""""""""""""""""""""""""""""""""""""
 " Functions

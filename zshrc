@@ -32,6 +32,7 @@ else
   echo "Cannot find Antigen install"
 fi
 
+export BAT_THEME="base16"
 
 # OH-MY-ZSH
 antigen use oh-my-zsh
@@ -99,6 +100,15 @@ function choose_ls {
   fi
 }
 
+alias cat=choose_cat
+function choose_cat {
+  if which bat > /dev/null; then
+    bat $@
+  else
+    command cat $@
+  fi
+}
+
 # Git aliases
 alias gc="git commit"
 alias gs="git status"
@@ -139,15 +149,15 @@ if which tmux &> /dev/null; then
 fi
 
 slugify() {
-  echo "${1}" | iconv -t ascii//TRANSLIT | gsed -r 's/[^a-zA-Z0-9]+/-/g' | gsed -r 's/^-+\|-+$//g' | tr A-Z a-z
+  echo "${1}" | iconv -t ascii//TRANSLIT | gsed -r 's/[^a-zA-Z0-9]+/-/g' | gsed -r 's/^-+|-+$//g' | tr '[:upper:]' '[:lower:]'
 }
 
 bb-tag () {
-  local branch="$(slugify $(git branch | grep \* | cut -d ' ' -f2))"
-  local commit="$(git log --pretty=format:'%h' -n 1)"
-  local tag="${1}-${branch}-${commit}"
-  git tag $tag
-  echo $tag
+    local branch="$(slugify "$(git rev-parse --abbrev-ref HEAD)")"
+    local commit="$(git rev-parse --short HEAD)"
+    local tag="${1}-${branch}-${commit}"
+    git tag $tag
+    echo $tag
 }
 
 # tabtab source for serverless package
