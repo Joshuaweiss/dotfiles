@@ -91,6 +91,18 @@ set termguicolors
 set number
 syntax on
 
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+    \ }
+
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
 let g:ale_fixers = {
     \  'javascript': ['eslint'],
     \  'typescript': ['eslint', 'tslint'],
@@ -106,6 +118,9 @@ let g:ale_fixers = {
     \  'python': ['flake8'],
     \  'json': ['fixjson']
     \ }
+
+let g:racer_cmd = "~/.cargo/bin/racer"
+let g:racer_experimental_completer = 1
 
 set background=dark
 " colorscheme gruvbox
@@ -147,7 +162,7 @@ if (has("termguicolors"))
 endif
 
 """"""""""""""""""""""""""""""""""""""""
-" Plugin Settings
+" Plug Settings
 """"""""""""""""""""""""""""""""""""""""
 
 let g:ranger_replace_netrw = 1
