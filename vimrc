@@ -1,75 +1,68 @@
 """""""""""""""""""""""""""""""""""""""""
-"""" Vim Dein
+"""" Vim Plug
 """"""""""""""""""""""""""""""""""""""""
 
-" set the runtime path to include dein and initialize
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+call plug#begin('~/.config/nvim/plugged')
 
-if dein#load_state('~/.cache/dein')
-    call dein#begin('~/.cache/dein')
+"""""""""""""""""""""""""""""""""""""""""""""""
+""" Improve Vim Capabilities
+"""""""""""""""""""""""""""""""""""""""""""""""
 
-    call dein#add('autozimu/LanguageClient-neovim', {
-        \ 'rev': 'next',
-        \ 'build': 'bash install.sh',
-        \ })
+Plug 'chrisbra/unicode.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-unimpaired'
+Plug 'rking/ag.vim'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-jdaddy'
+Plug 'tpope/vim-fugitive'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-surround'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-abolish'
+Plug 'rbgrouleff/bclose.vim'
+Plug 'francoiscabrol/ranger.vim'
 
-    """""""""""""""""""""""""""""""""""""""""""""""
-    """ Improve Vim Capabilities
-    """""""""""""""""""""""""""""""""""""""""""""""
-    call dein#add('chrisbra/unicode.vim')
-    call dein#add('nathanaelkane/vim-indent-guides')
-    call dein#add('tpope/vim-unimpaired')
-    call dein#add('rking/ag.vim')
-    call dein#add('tpope/vim-endwise.git')
-    call dein#add('tpope/vim-jdaddy.git')
-    call dein#add('tpope/vim-fugitive')
-    call dein#add('kien/ctrlp.vim')
-    call dein#add('tpope/vim-eunuch')
-    call dein#add('tpope/vim-dispatch')
-    call dein#add('tpope/vim-surround')
-    call dein#add('terryma/vim-multiple-cursors')
-    call dein#add('tpope/vim-abolish')
-    call dein#add('francoiscabrol/ranger.vim')
-    call dein#add('rbgrouleff/bclose.vim')
+""" Add language support
+Plug 'jparise/vim-graphql'
+Plug 'rust-lang/rust.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'vim-ruby/vim-ruby'
+Plug 'isRuslan/vim-es6'
+Plug 'plasticboy/vim-markdown'
+Plug 'posva/vim-vue'
+Plug 'pangloss/vim-javascript'
+Plug 'briancollins/vim-jst'
+Plug 'mxw/vim-jsx'
+Plug 'elzr/vim-json'
+Plug 'tikhomirov/vim-glsl'
+Plug 'xavierchow/vim-sequence-diagram'
+Plug 'JuliaEditorSupport/julia-vim'
+Plug 'hashivim/vim-terraform'
 
-    """ Add language support
-    call dein#add('jparise/vim-graphql')
-    call dein#add('rust-lang/rust.vim')
-    call dein#add('leafgarland/typescript-vim')
-    call dein#add('peitalin/vim-jsx-typescript')
-    call dein#add('vim-ruby/vim-ruby')
-    call dein#add('isRuslan/vim-es6')
-    call dein#add('plasticboy/vim-markdown')
-    call dein#add('posva/vim-vue')
-    call dein#add('pangloss/vim-javascript')
-    call dein#add('briancollins/vim-jst')
-    call dein#add('mxw/vim-jsx')
-    call dein#add('elzr/vim-json')
-    call dein#add('tikhomirov/vim-glsl')
-    call dein#add('xavierchow/vim-sequence-diagram')
-    call dein#add('JuliaEditorSupport/julia-vim')
+""" Programming Tools
+Plug 'ap/vim-css-color'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'w0rp/ale'
+Plug 'janko/vim-test'
 
-    """ Programming Tools
-    call dein#add('ap/vim-css-color')
-    call dein#add('editorconfig/editorconfig-vim')
-    call dein#add('w0rp/ale')
-    call dein#add('janko/vim-test')
+""" Airline and Themes
+Plug 'itchyny/lightline.vim'
+Plug 'edkolev/tmuxline.vim'
+Plug 'drewtempelmeyer/palenight.vim'
 
-    """ Airline and Themes
-    call dein#add('itchyny/lightline.vim')
-    call dein#add('edkolev/tmuxline.vim')
-    call dein#add('drewtempelmeyer/palenight.vim')
+""" Navigation should override any other macros
+Plug 'christoomey/vim-tmux-navigator'
 
-    """ Navigation should override any other macros
-    call dein#add('christoomey/vim-tmux-navigator')
-
-    call dein#end()
-    call dein#save_state()
-endif
+call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""
 " Basic Config
 """"""""""""""""""""""""""""""""""""""""
+
+autocmd BufNewFile,BufRead *.tsx  set filetype=typescript
 
 """ vim-json
 let g:vim_json_syntax_conceal = 0
