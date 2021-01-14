@@ -49,6 +49,7 @@ safe_link $DIR/skhdrc ~/.config/skhd/skhdrc
 safe_link $DIR/yabairc ~/.config/yabai/yabairc
 mkdir ~/.
 safe_link $DIR/gitignore ~/.gitignore
+safe_link $DIR/gitconfig ~/.gitconfig
 
 mkdir ~/.utils
 rustc -O ./pwd_tmux/main.rs -o ~/.utils/pwd-tmux

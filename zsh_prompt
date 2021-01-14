@@ -35,7 +35,7 @@ function prompt {
   echo -n "%{$fg_bold[blue]%}λ%{$reset_color%} "
 }
 
-PROMPT="\$(prompt)"
+PROMPT="$(prompt)"
 export PROMPT
 
 # Execution time start
