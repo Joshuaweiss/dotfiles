@@ -12,6 +12,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 
 # Path
+export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.pyenv/shims"
 export PATH="$PATH:$HOME/.cabal/bin"
@@ -67,7 +68,7 @@ load-nvmrc
 
 # Automatically change the directories after closing ranger
 function rcd {
-  if !which ranger; then
+  if ! which ranger > /dev/null; then
     echo "Cannot find ranger"
     exit 1
   fi
@@ -113,8 +114,6 @@ function choose_cat {
 alias gc="git commit"
 alias gs="git status"
 alias ga="git add"
-alias gpff="git pff"
-alias grb="git rb"
 
 function git-my-diff() {
   git diff :1:$1 :2:$1
@@ -129,8 +128,7 @@ function git-merge() {
 }
 
 # Other
-alias ppjson="python -m json.tool"
-
+alias ppjson="python3 -m json.tool"
 alias cpwd="pwd | pbcopy"
 alias pcd='cd $(pbpaste)'
 
@@ -141,31 +139,9 @@ tmux_status() {
 }
 
 if which tmux &> /dev/null; then
-    if [ -z "$TMUX" ] && [ ${UID} != 0 ]; then
-      exec tmux new-session -A -s main
-    else
-      add-zsh-hook precmd tmux_status
-    fi
+  if [ -z "$TMUX" ] && [ -n "$AUTO_TMUX" ] && [ ${UID} != 0 ]; then
+    tmux new-session -A -s main
+  else
+    add-zsh-hook precmd tmux_status
+  fi
 fi
-
-slugify() {
-  echo "${1}" | iconv -t ascii//TRANSLIT | gsed -r 's/[^a-zA-Z0-9]+/-/g' | gsed -r 's/^-+|-+$//g' | tr '[:upper:]' '[:lower:]'
-}
-
-bb-tag () {
-    local branch="$(slugify "$(git rev-parse --abbrev-ref HEAD)")"
-    local commit="$(git rev-parse --short HEAD)"
-    local tag="${1}-${branch}-${commit}"
-    git tag $tag
-    echo $tag
-}
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/joshuaweiss/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/joshuaweiss/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/joshuaweiss/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/joshuaweiss/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/joshuaweiss/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/joshuaweiss/.config/yarn/global/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh

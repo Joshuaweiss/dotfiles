@@ -12,4 +12,4 @@
 [core]
     excludesfile = ~/.gitignore
 [rebase]
-	autosquash = true
+    autosquash = true
