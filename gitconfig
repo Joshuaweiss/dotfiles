@@ -9,6 +9,8 @@
     ck = checkout
     s = status
     a = add
+	first-after = "!f() { git log --after=\"$1\" --reverse --pretty=format:\"%h\" | head -n 1; }; f"
+	last-before = "!f() { git log --before=\"$1\" --pretty=format:\"%h\" | head -n 1; }; f"
 [core]
     excludesfile = ~/.gitignore
 [rebase]
