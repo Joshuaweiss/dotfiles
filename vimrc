@@ -20,7 +20,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-abolish'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'francoiscabrol/ranger.vim'
