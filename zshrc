@@ -21,6 +21,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 
 export NVM_DIR="$HOME/.nvm"
+export GOPATH="$HOME/.go"
 source $(brew --prefix nvm)/nvm.sh
 
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"

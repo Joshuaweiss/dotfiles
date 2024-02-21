@@ -41,6 +41,10 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'xavierchow/vim-sequence-diagram'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'hashivim/vim-terraform'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'nono/lezer.vim'
+Plug 'chr4/nginx.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 """ Programming Tools
 Plug 'ap/vim-css-color'
@@ -61,7 +65,8 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""
 " Basic Config
 """"""""""""""""""""""""""""""""""""""""
-
+au BufRead,BufNewFile */nginx.conf.template set ft=nginx
+au BufRead,BufNewFile */nginx/*.conf.template set ft=nginx
 autocmd BufNewFile,BufRead *.tsx  set filetype=typescript
 
 """ vim-json
@@ -78,7 +83,7 @@ let g:EditorConfig_max_line_indicator = 'fill'
 let g:EditorConfig_preserve_formatoptions = 1
 
 """ ale
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 
 """ using unamed clipboard to match macOS
 set clipboard=unnamed
@@ -91,23 +96,11 @@ set termguicolors
 set number
 syntax on
 
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ 'python': ['/usr/local/bin/pyls'],
-    \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
-    \ }
-
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
 let g:ale_fixers = {
     \  'javascript': ['eslint'],
     \  'typescript': ['eslint', 'tslint'],
     \  'json': ['fixjson'],
-    \  'python': ['trim_whitespace', 'remove_trailing_lines']
+    \  'python': ['trim_whitespace', 'remove_trailing_lines'],
     \ }
     let g:ale_lint_on_save = 1
     let g:ale_fix_on_save = 1
@@ -116,11 +109,9 @@ let g:ale_fixers = {
     \  'javascript': ['eslint', 'flow'],
     \  'typescript': ['eslint', 'tslint', 'tsserver'],
     \  'python': ['flake8'],
-    \  'json': ['fixjson']
+    \  'json': ['fixjson'],
+    \  'rust': ['analyzer', 'cargo']
     \ }
-
-let g:racer_cmd = "~/.cargo/bin/racer"
-let g:racer_experimental_completer = 1
 
 set background=dark
 " colorscheme gruvbox
