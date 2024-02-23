@@ -1,360 +1,347 @@
-# Configuration for Alacritty, the GPU enhanced terminal emulator
+[bell]
+animation = "EaseOutExpo"
+duration = 0
 
-# Any items in the `env` entry below will be added as
-# environment variables. Some entries may override variables
-# set by alacritty it self.
-env:
-  AUTO_TMUX: "true"
-  # TERM env customization.
-  #
-  # If this property is not set, alacritty will set it to xterm-256color.
-  #
-  # Note that some xterm terminfo databases don't declare support for italics.
-  # You can verify this by checking for the presence of `smso` and `sitm` in
-  # `infocmp xterm-256color`.
-  TERM: xterm-256color
+[colors]
+draw_bold_text_with_bright_colors = true
 
-scrolling:
-  # How many lines of scrollback to keep,
-  # '0' will disable scrolling.
-  history: 10000
+[colors.bright]
+black = "0x676e95"
+blue = "0x82aaff"
+cyan = "0x89ddff"
+green = "0xc3e88d"
+magenta = "0xc792ea"
+red = "0xf07178"
+white = "0x959dcb"
+yellow = "0xffcb6b"
 
-  # Number of lines the viewport will move for every line
-  # scrolled when scrollback is enabled (history > 0).
-  multiplier: 1
+[colors.normal]
+black = "0x292d3e"
+blue = "0x82aaff"
+cyan = "0x89ddff"
+green = "0xc3e88d"
+magenta = "0xc792ea"
+red = "0xf07178"
+white = "0x959dcb"
+yellow = "0xffcb6b"
 
-window:
-  # Window dimensions in character columns and lines
-  # (changes require restart)
-  decorations: full
-  dimensions:
-    columns: 80
-    lines: 24
+[colors.primary]
+background = "0x070e1c"
+foreground = "0xa2aadb"
 
-  opacity: 0.97
+[env]
+AUTO_TMUX = "true"
+TERM = "xterm-256color"
 
-  # Adds this many blank pixels of padding around the window
-  # Units are physical pixels; this is not DPI aware.
-  # (change requires restart)
-  padding:
-    x: 8
-    y: 8
+[font]
+size = 15.0
 
-# When true, bold text is drawn using the bright variant of colors.
-draw_bold_text_with_bright_colors: true
+[font.bold]
+family = "Fira Code"
+style = "Bold"
 
-# Font configuration (changes require restart)
-font:
-  # The normal (roman) font face to use.
-  normal:
-    family: "Fira Code"
-    # Style can be specified to pick a specific face.
-    style: Retina
+[font.glyph_offset]
+x = 0
+y = 0
 
-  # The bold font face
-  bold:
-    family: "Fira Code"
-    # Style can be specified to pick a specific face.
-    style: Bold
+[font.italic]
+family = "Fira Code"
+style = "Italic"
 
-  # The italic font face
-  italic:
-    family: "Fira Code"
-    # Style can be specified to pick a specific face.
-    style: Italic
+[font.normal]
+family = "Fira Code"
+style = "Retina"
 
-  # Point size of the font
-  size: 15.0
+[font.offset]
+x = 0
+y = 0
 
-  # Offset is the extra space around each character. offset.y can be thought of
-  # as modifying the linespacing, and offset.x as modifying the letter spacing.
-  offset:
-    x: 0
-    y: 0
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Command"
 
-  # Glyph offset determines the locations of the glyphs within their cells with
-  # the default being at the bottom. Increase the x offset to move the glyph to
-  # the right, increase the y offset to move the glyph upward.
-  glyph_offset:
-    x: 0
-    y: 0
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Command"
 
-  # OS X only: use thin stroke font rendering. Thin strokes are suitable
-  # for retina displays, but for non-retina you probably want this set to
-  # false.
-  use_thin_strokes: true
+[[keyboard.bindings]]
+action = "Quit"
+key = "Q"
+mods = "Command"
 
-  scale_with_dpi: true
+[[keyboard.bindings]]
+action = "Quit"
+key = "W"
+mods = "Command"
 
-# Base16 Material Palenight 256 - alacritty color config
-# Nate Peterson
-colors:
-  # Default colors
-  primary:
-    # background: '0x182032'
-    background: '0x070e1c'
-    foreground: '0xa2aadb'
+[[keyboard.bindings]]
+key = "N"
+mods = "Command"
 
-  # Normal colors
-  normal:
-    black:   '0x292d3e'
-    red:     '0xf07178'
-    green:   '0xc3e88d'
-    yellow:  '0xffcb6b'
-    blue:    '0x82aaff'
-    magenta: '0xc792ea'
-    cyan:    '0x89ddff'
-    white:   '0x959dcb'
+[keyboard.bindings.command]
+args = ["-nb", "io.alacritty"]
+program = "open"
 
-  # Bright colors
-  bright:
-    black:   '0x676e95'
-    red:     '0xf07178'
-    green:   '0xc3e88d'
-    yellow:  '0xffcb6b'
-    blue:    '0x82aaff'
-    magenta: '0xc792ea'
-    cyan:    '0x89ddff'
-    white:   '0x959dcb'
+[[keyboard.bindings]]
+chars = "\u001BOH"
+key = "Home"
+mode = "AppCursor"
 
-# scorcerer colors
-# colors:
-#   primary:
-#     background: '0x22222b'
-#     foreground: '0xc2c2b0'
-# 
-#   cursor:
-#     text:   '0xc2c2b0'
-#     cursor: '0xc2c2b0'
-# 
-#   normal:
-#     black:   '0x111111'
-#     red:     '0xaa4450'
-#     green:   '0x719611'
-#     yellow:  '0xcc8800'
-#     blue:    '0x6688aa'
-#     magenta: '0x8f6f8f'
-#     cyan:    '0x528b8b'
-#     white:   '0xd3d3d3'
-# 
-#   bright:
-#     black:   '0x181818'
-#     red:     '0xff6a6a'
-#     green:   '0xb1d631'
-#     yellow:  '0xff9800'
-#     blue:    '0x90b0d1'
-#     magenta: '0x8181a6'
-#     cyan:    '0x87ceeb'
-#     white:   '0xc1cdc1'
+[[keyboard.bindings]]
+chars = "\u001B[1~"
+key = "Home"
+mode = "~AppCursor"
 
-# Colors (Tomorrow Night Bright)
-# colors:
-#   # Default colors
-#   primary:
-#     # hard contrast: background = '0x1d2021'
-#     background: '#222222'
-#     # soft contrast: background = '0x32302f'
-#     foreground: '#eaeaea'
-# 
-#   # Normal colors
-#   normal:
-#     black:   '0x282828'
-#     red:     '#d54e53'
-#     green:   '#b9ca4a'
-#     yellow:  '#e7c547'
-#     blue:    '#7aa6da'
-#     magenta: '#c397d8'
-#     cyan:    '#70c0b1'
-#     white:   '0xa89984'
-# 
-#   # Bright colors
-#   bright:
-#     black:   '0x928374'
-#     red:     '#d54e53'
-#     green:   '#b9ca4a'
-#     yellow:  '#e7c547'
-#     blue:    '#7aa6da'
-#     magenta: '#c397d8'
-#     cyan:    '#70c0b1'
-#     white:   '0xebdbb2'
+[[keyboard.bindings]]
+chars = "\u001BOF"
+key = "End"
+mode = "AppCursor"
 
-# # Colors (Gruvbox dark)
-# colors:
-#   # Default colors
-#   primary:
-#     # hard contrast: background = '0x1d2021'
-#     background: '0x282828'
-#     # soft contrast: background = '0x32302f'
-#     foreground: '0xebdbb2'
-# 
-#   # Normal colors
-#   normal:
-#     black:   '0x282828'
-#     red:     '0xcc241d'
-#     green:   '0x98971a'
-#     yellow:  '0xd79921'
-#     blue:    '0x458588'
-#     magenta: '0xb16286'
-#     cyan:    '0x689d6a'
-#     white:   '0xa89984'
-# 
-#   # Bright colors
-#   bright:
-#     black:   '0x928374'
-#     red:     '0xfb4934'
-#     green:   '0xb8bb26'
-#     yellow:  '0xfabd2f'
-#     blue:    '0x83a598'
-#     magenta: '0xd3869b'
-#     cyan:    '0x8ec07c'
-#     white:   '0xebdbb2'
+[[keyboard.bindings]]
+chars = "\u001B[4~"
+key = "End"
+mode = "~AppCursor"
 
-# Visual Bell
-#
-# Any time the BEL code is received, Alacritty "rings" the visual bell. Once
-# rung, the terminal background will be set to white and transition back to the
-# default background color. You can control the rate of this transition by
-# setting the `duration` property (represented in milliseconds). You can also
-# configure the transition function by setting the `animation` property.
-#
-# Possible values for `animation`
-# `Ease`
-# `EaseOut`
-# `EaseOutSine`
-# `EaseOutQuad`
-# `EaseOutCubic`
-# `EaseOutQuart`
-# `EaseOutQuint`
-# `EaseOutExpo`
-# `EaseOutCirc`
-# `Linear`
-#
-# To completely disable the visual bell, set its duration to 0.
-#
-bell:
-  animation: EaseOutExpo
-  duration: 0
+[[keyboard.bindings]]
+chars = "\u001B[5;2~"
+key = "PageUp"
+mods = "Shift"
 
-# Key bindings
-#
-# Each binding is defined as an object with some properties. Most of the
-# properties are optional. All of the alphabetical keys should have a letter for
-# the `key` value such as `V`. Function keys are probably what you would expect
-# as well (F1, F2, ..). The number keys above the main keyboard are encoded as
-# `Key1`, `Key2`, etc. Keys on the number pad are encoded `Number1`, `Number2`,
-# etc.  These all match the glutin::VirtualKeyCode variants.
-#
-# Possible values for `mods`
-# `Command`, `Super` refer to the super/command/windows key
-# `Control` for the control key
-# `Shift` for the Shift key
-# `Alt` and `Option` refer to alt/option
-#
-# mods may be combined with a `|`. For example, requiring control and shift
-# looks like:
-#
-# mods: Control|Shift
-#
-# The parser is currently quite sensitive to whitespace and capitalization -
-# capitalization must match exactly, and piped items must not have whitespace
-# around them.
-#
-# Either an `action`, `chars`, or `command` field must be present.
-#   `action` must be one of `Paste`, `PasteSelection`, `Copy`, or `Quit`.
-#   `chars` writes the specified string every time that binding is activated.
-#     These should generally be escape sequences, but they can be configured to
-#     send arbitrary strings of bytes.
-#   `command` must be a map containing a `program` string, and `args` array of
-#     strings. For example:
-#     - { ... , command: { program: "alacritty", args: ["-e", "vttest"] } }
-key_bindings:
-  - { key: V,        mods: Command, action: Paste                        }
-  - { key: C,        mods: Command, action: Copy                         }
-  - { key: Q,        mods: Command, action: Quit                         }
-  - { key: W,        mods: Command, action: Quit                         }
-  - { key: N,        mods: Command, command: { program: "open", args: ["-nb", "io.alacritty"] } }
-  - { key: Home,                    chars: "\x1bOH",   mode: AppCursor   }
-  - { key: Home,                    chars: "\x1b[1~",  mode: ~AppCursor  }
-  - { key: End,                     chars: "\x1bOF",   mode: AppCursor   }
-  - { key: End,                     chars: "\x1b[4~",  mode: ~AppCursor  }
-  - { key: PageUp,   mods: Shift,   chars: "\x1b[5;2~"                   }
-  - { key: PageUp,   mods: Control, chars: "\x1b[5;5~"                   }
-  - { key: PageUp,                  chars: "\x1b[5~"                     }
-  - { key: PageDown, mods: Shift,   chars: "\x1b[6;2~"                   }
-  - { key: PageDown, mods: Control, chars: "\x1b[6;5~"                   }
-  - { key: PageDown,                chars: "\x1b[6~"                     }
-  - { key: Left,     mods: Shift,   chars: "\x1b[1;2D"                   }
-  - { key: Left,     mods: Control, chars: "\x1b[1;5D"                   }
-  - { key: Left,     mods: Alt,     chars: "\x1b[1;3D"                   }
-  - { key: Left,                    chars: "\x1b[D",   mode: ~AppCursor  }
-  - { key: Left,                    chars: "\x1bOD",   mode: AppCursor   }
-  - { key: Right,    mods: Shift,   chars: "\x1b[1;2C"                   }
-  - { key: Right,    mods: Control, chars: "\x1b[1;5C"                   }
-  - { key: Right,    mods: Alt,     chars: "\x1b[1;3C"                   }
-  - { key: Right,                   chars: "\x1b[C",   mode: ~AppCursor  }
-  - { key: Right,                   chars: "\x1bOC",   mode: AppCursor   }
-  - { key: Up,       mods: Shift,   chars: "\x1b[1;2A"                   }
-  - { key: Up,       mods: Control, chars: "\x1b[1;5A"                   }
-  - { key: Up,       mods: Alt,     chars: "\x1b[1;3A"                   }
-  - { key: Up,                      chars: "\x1b[A",   mode: ~AppCursor  }
-  - { key: Up,                      chars: "\x1bOA",   mode: AppCursor   }
-  - { key: Down,     mods: Shift,   chars: "\x1b[1;2B"                   }
-  - { key: Down,     mods: Control, chars: "\x1b[1;5B"                   }
-  - { key: Down,     mods: Alt,     chars: "\x1b[1;3B"                   }
-  - { key: Down,                    chars: "\x1b[B",   mode: ~AppCursor  }
-  - { key: Down,                    chars: "\x1bOB",   mode: AppCursor   }
-  - { key: Tab,      mods: Shift,   chars: "\x1b[Z"                      }
-  - { key: F1,                      chars: "\x1bOP"                      }
-  - { key: F2,                      chars: "\x1bOQ"                      }
-  - { key: F3,                      chars: "\x1bOR"                      }
-  - { key: F4,                      chars: "\x1bOS"                      }
-  - { key: F5,                      chars: "\x1b[15~"                    }
-  - { key: F6,                      chars: "\x1b[17~"                    }
-  - { key: F7,                      chars: "\x1b[18~"                    }
-  - { key: F8,                      chars: "\x1b[19~"                    }
-  - { key: F9,                      chars: "\x1b[20~"                    }
-  - { key: F10,                     chars: "\x1b[21~"                    }
-  - { key: F11,                     chars: "\x1b[23~"                    }
-  - { key: F12,                     chars: "\x1b[24~"                    }
-  - { key: Back,                    chars: "\x7f"                        }
-  - { key: Back,     mods: Alt,     chars: "\x1b\x7f"                    }
-  - { key: Insert,                  chars: "\x1b[2~"                     }
-  - { key: Delete,                  chars: "\x1b[3~"                     }
-  - { key: Equals,     mods: Shift | Command, action: IncreaseFontSize }
-  - { key: Minus,    mods: Command, action: DecreaseFontSize }
-  - { key: H, mods: Command, command: { program: "osascript", args: ["-e", "tell application \"System Events\" to tell process \"Alacritty\" to set visible to false"] } }
+[[keyboard.bindings]]
+chars = "\u001B[5;5~"
+key = "PageUp"
+mods = "Control"
 
-# Mouse bindings
-#
-# Currently doesn't support modifiers. Both the `mouse` and `action` fields must
-# be specified.
-#
-# Values for `mouse`:
-# - Middle
-# - Left
-# - Right
-# - Numeric identifier such as `5`
-#
-# Values for `action`:
-# - Paste
-# - PasteSelection
-# - Copy (TODO)
-mouse_bindings:
-  - { mouse: Middle, action: PasteSelection }
+[[keyboard.bindings]]
+chars = "\u001B[5~"
+key = "PageUp"
 
-mouse:
-  double_click: { threshold: 300 }
-  triple_click: { threshold: 300 }
+[[keyboard.bindings]]
+chars = "\u001B[6;2~"
+key = "PageDown"
+mods = "Shift"
 
-selection:
-  semantic_escape_chars: ",│`|:\"' ()[]{}<>"
+[[keyboard.bindings]]
+chars = "\u001B[6;5~"
+key = "PageDown"
+mods = "Control"
 
-hide_cursor_when_typing: false
+[[keyboard.bindings]]
+chars = "\u001B[6~"
+key = "PageDown"
 
-# Shell
-#
-# You can set shell.program to the path of your favorite shell, e.g. /bin/fish.
-# Entries in shell.args are passed unmodified as arguments to the shell.
-#
-shell:
-  program: /bin/zsh
+[[keyboard.bindings]]
+chars = "\u001B[1;2D"
+key = "Left"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;5D"
+key = "Left"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;3D"
+key = "Left"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B[D"
+key = "Left"
+mode = "~AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001BOD"
+key = "Left"
+mode = "AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;2C"
+key = "Right"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;5C"
+key = "Right"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;3C"
+key = "Right"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B[C"
+key = "Right"
+mode = "~AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001BOC"
+key = "Right"
+mode = "AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;2A"
+key = "Up"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;5A"
+key = "Up"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;3A"
+key = "Up"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B[A"
+key = "Up"
+mode = "~AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001BOA"
+key = "Up"
+mode = "AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;2B"
+key = "Down"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;5B"
+key = "Down"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[1;3B"
+key = "Down"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B[B"
+key = "Down"
+mode = "~AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001BOB"
+key = "Down"
+mode = "AppCursor"
+
+[[keyboard.bindings]]
+chars = "\u001B[Z"
+key = "Tab"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001BOP"
+key = "F1"
+
+[[keyboard.bindings]]
+chars = "\u001BOQ"
+key = "F2"
+
+[[keyboard.bindings]]
+chars = "\u001BOR"
+key = "F3"
+
+[[keyboard.bindings]]
+chars = "\u001BOS"
+key = "F4"
+
+[[keyboard.bindings]]
+chars = "\u001B[15~"
+key = "F5"
+
+[[keyboard.bindings]]
+chars = "\u001B[17~"
+key = "F6"
+
+[[keyboard.bindings]]
+chars = "\u001B[18~"
+key = "F7"
+
+[[keyboard.bindings]]
+chars = "\u001B[19~"
+key = "F8"
+
+[[keyboard.bindings]]
+chars = "\u001B[20~"
+key = "F9"
+
+[[keyboard.bindings]]
+chars = "\u001B[21~"
+key = "F10"
+
+[[keyboard.bindings]]
+chars = "\u001B[23~"
+key = "F11"
+
+[[keyboard.bindings]]
+chars = "\u001B[24~"
+key = "F12"
+
+[[keyboard.bindings]]
+chars = "\u007F"
+key = "Back"
+
+[[keyboard.bindings]]
+chars = "\u001B\u007F"
+key = "Back"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B[2~"
+key = "Insert"
+
+[[keyboard.bindings]]
+chars = "\u001B[3~"
+key = "Delete"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Equals"
+mods = "Shift | Command"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Command"
+
+[[keyboard.bindings]]
+key = "H"
+mods = "Command"
+
+[keyboard.bindings.command]
+args = ["-e", "tell application \"System Events\" to tell process \"Alacritty\" to set visible to false"]
+program = "osascript"
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Middle"
+
+[scrolling]
+history = 10000
+multiplier = 1
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+
+[shell]
+program = "/bin/zsh"
+
+[window]
+decorations = "full"
+opacity = 0.97
+
+[window.dimensions]
+columns = 80
+lines = 24
+
+[window.padding]
+x = 8
+y = 8

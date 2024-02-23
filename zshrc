@@ -12,6 +12,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 
 # Path
+export PATH="$PATH:/usr/local/bin"
 export PATH="$PATH:/opt/homebrew/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.pyenv/shims"

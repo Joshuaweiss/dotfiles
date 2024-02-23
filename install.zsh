@@ -41,7 +41,7 @@ mkdir ~/.config
 mkdir ~/.config/nvim
 safe_link $DIR/vimrc ~/.config/nvim/init.vim
 mkdir ~/.config/alacritty
-safe_link $DIR/alacritty ~/.config/alacritty/alacritty.yml
+safe_link $DIR/alacritty ~/.config/alacritty/alacritty.toml
 mkdir ~/.config/skhd
 safe_link $DIR/skhdrc ~/.config/skhd/skhdrc
 mkdir ~/.config/yabai
