@@ -11,7 +11,6 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'chrisbra/unicode.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-unimpaired'
 Plug 'rking/ag.vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-jdaddy'
@@ -19,7 +18,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-surround'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-abolish'
 Plug 'rbgrouleff/bclose.vim'
@@ -83,7 +81,7 @@ let g:EditorConfig_max_line_indicator = 'fill'
 let g:EditorConfig_preserve_formatoptions = 1
 
 """ ale
-let g:ale_completion_enabled = 0
+let g:ale_completion_enabled = 1
 
 """ using unamed clipboard to match macOS
 set clipboard=unnamed
@@ -101,6 +99,7 @@ let g:ale_fixers = {
     \  'typescript': ['eslint', 'tslint'],
     \  'json': ['fixjson'],
     \  'python': ['trim_whitespace', 'remove_trailing_lines'],
+	\  'go': [],
     \ }
     let g:ale_lint_on_save = 1
     let g:ale_fix_on_save = 1
@@ -110,13 +109,12 @@ let g:ale_fixers = {
     \  'typescript': ['eslint', 'tslint', 'tsserver'],
     \  'python': ['flake8'],
     \  'json': ['fixjson'],
-    \  'rust': ['analyzer', 'cargo']
+    \  'rust': ['analyzer', 'cargo'],
+	\  'go': ['go vet'],
     \ }
 
 set background=dark
-" colorscheme gruvbox
 colorscheme palenight
-let g:palenight_terminal_italics=1
 
 """ Make background clear for terminal emulator background images
 hi Normal ctermbg=none

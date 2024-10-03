@@ -15,3 +15,7 @@
     excludesfile = ~/.gitignore
 [rebase]
     autosquash = true
+[fetch]
+    pruneTags = true
+[pull]
+    ff = only

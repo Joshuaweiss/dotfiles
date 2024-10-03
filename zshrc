@@ -20,6 +20,8 @@ export PATH="$PATH:$HOME/.cabal/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:$HOME/.go/bin"
+export PATH="$(brew --prefix python)/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 export GOPATH="$HOME/.go"
