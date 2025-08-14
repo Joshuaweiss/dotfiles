@@ -5,7 +5,7 @@ export LANG=en_US.UTF-8
 
 # Vi mode
 bindkey -v
-set editing-mode vi
+set editing-mode viins
 
 # Editor
 export EDITOR=nvim
@@ -29,6 +29,8 @@ source $(brew --prefix nvm)/nvm.sh
 
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
+export BAT_THEME="base16"
+
 if [[ -a "/usr/share/zsh/share/antigen.zsh" ]]; then
   source "/usr/share/zsh/share/antigen.zsh"
 elif [[ -a "$(brew --prefix)/share/antigen/antigen.zsh" ]]; then
@@ -36,8 +38,6 @@ elif [[ -a "$(brew --prefix)/share/antigen/antigen.zsh" ]]; then
 else
   echo "Cannot find Antigen install"
 fi
-
-export BAT_THEME="base16"
 
 # OH-MY-ZSH
 antigen use oh-my-zsh
@@ -98,8 +98,8 @@ function choose_vim {
 
 alias ls=choose_ls
 function choose_ls {
-  if which exa > /dev/null; then
-    exa $@
+  if which eza > /dev/null; then
+    eza $@
   else
     command ls $@
   fi
