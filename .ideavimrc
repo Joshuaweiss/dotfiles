@@ -1,0 +1,13 @@
+let mapleader = "\\"
+
+map <Leader>sp :split<CR>
+map <Leader>vs :vsplit<CR>
+
+nmap <C-h> <C-W>h
+nmap <C-l> <C-W>l
+nmap <C-j> <C-W>j
+nmap <C-k> <C-W>k
+
+map <Leader>cr <action>(ContextRun)
+map - <action>(OpenNetrw)
+map <Leader>rw <action>(OpenNetrw)
